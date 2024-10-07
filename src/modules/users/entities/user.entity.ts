@@ -4,7 +4,7 @@ import {
 } from '../../../../src/core/entity/base-entity';
 import { Email } from './value-object/email';
 
-interface UserProps extends BaseEntityProps {
+export interface UserProps extends BaseEntityProps {
   name: string;
   email: string;
   password: string;
