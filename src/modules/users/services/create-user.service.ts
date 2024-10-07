@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { User } from '../entities/user.entity';
-import { BaseError } from '../../../../src/core/errors/base-error';
+import { BaseError } from '../../../core/errors/base-error';
 
 import { HashProvider } from '../providers/hash.provider';
 import { UserRepository } from '../repositories/user.repository';
