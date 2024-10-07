@@ -98,26 +98,4 @@ apikey: aa9290ba
 - Banco de dados [MySQL](https://www.mysql.com/)
 
 
-### O que nós ficaríamos felizes de ver em seu teste
-* Testes unitários
-* Body, query e params com algum tipo de validação
-* Documentação de todos os endpoints da api
-* Prettier e eslint configurados no projeto
 
-### O que nos impressionaria
-* Testes de integração
-* Aplicação facilmente rodável usando docker-compose
-* Tratamento de erros bem estruturado
-* Uso adequado (caso necessário) de interceptors e guards
-* Uso de repositórios para se comunicar com o banco
-
-### O que nós não gostaríamos
-* Descobrir que não foi você quem fez seu teste
-* Ver commits grandes, sem muita explicação nas mensagens em seu repositório 
-* Encontrar um um commit com as dependências de NPM
-
-## O que avaliaremos de seu teste
-* Histórico de commits do git
-* As instruções de como rodar o projeto
-* Organização, semântica, estrutura, legibilidade, manutenibilidade do seu código
-* Alcance dos objetivos propostos
