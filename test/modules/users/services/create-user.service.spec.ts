@@ -1,9 +1,11 @@
 import { MockProxy, mock } from 'jest-mock-extended';
-import { UserRepository } from '../../../../src/modules/users/repositories/user.repository';
-import { CreateUserService } from '../../../../src/modules/users/services/create-user.service';
-import { HashProvider } from '../../../../src/modules/users/providers/hash.provider';
 import { faker } from '@faker-js/faker/.';
-import { User } from '../../../../src/modules/users/entities/user.entity';
+
+import { UserRepository } from '@/modules/users/repositories/user.repository';
+
+import { HashProvider } from '@/modules/users/providers/hash.provider';
+import { CreateUserService } from '@/modules/users/services/create-user.service';
+import { User } from '@/modules/users/entities/user.entity';
 
 describe('CreateUserService', () => {
   let useCase: CreateUserService;
