@@ -8,7 +8,7 @@ interface Output extends Omit<UserProps, 'password'> {}
 @Injectable()
 export class ProfileUserService {
   constructor(
-    @Inject('UsersRepository')
+    @Inject('UserRepository')
     private readonly repository: UserRepository,
   ) {}
 
