@@ -1,7 +1,4 @@
-import {
-  BaseEntity,
-  BaseEntityProps,
-} from '../../../../src/core/entity/base-entity';
+import { BaseEntity, BaseEntityProps } from '../../../core/entity/base-entity';
 import { Email } from './value-object/email';
 
 export interface UserProps extends BaseEntityProps {
