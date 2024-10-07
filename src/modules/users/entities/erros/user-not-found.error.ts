@@ -4,5 +4,6 @@ export class UserNotFoundError extends BaseError {
   constructor() {
     super('User not found');
     this.name = 'UserNotFoundError';
+    this.statusCode = 404;
   }
 }

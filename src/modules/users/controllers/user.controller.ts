@@ -5,8 +5,10 @@ import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { ProfileUserService } from '../services/profile-user.service';
 import { UserProps } from '../entities/user.entity';
 import { GetUser } from '../../shared/decorator/get-user.decorator';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
+@ApiTags('Users')
 export class UserController {
   constructor(
     private readonly createUserService: CreateUserService,
@@ -14,6 +16,18 @@ export class UserController {
   ) {}
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'The user has been successfully created.',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        name: { type: 'string' },
+        email: { type: 'string' },
+      },
+    },
+  })
   async create(@Body() body: CreateUserDto) {
     const { name, email, password } = body;
 
@@ -28,6 +42,20 @@ export class UserController {
 
   @Get('/me')
   @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    status: 200,
+    description: 'The user has been successfully returned.',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        name: { type: 'string' },
+        email: { type: 'string' },
+      },
+    },
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBearerAuth()
   async profile(@GetUser() user: any): Promise<Omit<UserProps, 'password'>> {
     const response = await this.profileService.execute(user.id);
     return response;
