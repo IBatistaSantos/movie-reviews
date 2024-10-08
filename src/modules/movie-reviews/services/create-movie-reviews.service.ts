@@ -34,11 +34,19 @@ export class CreateMovieReviewService {
       movie = await this.createMovie(movieInformation);
     }
 
-    await this.repository.createReview({
+    const review = await this.repository.createReview({
       movieId: movie.id,
       userId,
       notes,
     });
+
+    return {
+      movie: {
+        title: movie.title,
+        poster: movie.poster,
+      },
+      reviewId: review.id,
+    };
   }
 
   private async createMovie(movie: MovieProvider) {

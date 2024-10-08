@@ -36,7 +36,7 @@ export class MovieReviewController {
     @GetUser() user,
     @Body() createReviewDTO: CreateReviewDTO,
   ): Promise<any> {
-    await this.createMovieService.execute({
+    return this.createMovieService.execute({
       userId: user.id,
       title: createReviewDTO.title,
       notes: createReviewDTO.notes,

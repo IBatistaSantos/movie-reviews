@@ -3,6 +3,7 @@ import { Movie } from '../../entity/movie';
 import {
   MovieRepository,
   MovieReviewData,
+  MovieReviewOutput,
 } from '../../repositories/movie.repository';
 import { MovieSchema } from './schemas/movie.schema';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -68,8 +69,8 @@ export class MovieReviewRepositoryImpl implements MovieRepository {
     await this.repository.save(movieSchema);
   }
 
-  async createReview(review: MovieReviewData): Promise<void> {
-    await this.reviewRepository.save({
+  async createReview(review: MovieReviewData): Promise<MovieReviewOutput> {
+    const response = await this.reviewRepository.save({
       movie: {
         id: review.movieId,
       },
@@ -78,5 +79,12 @@ export class MovieReviewRepositoryImpl implements MovieRepository {
       },
       notes: review.notes,
     });
+
+    return {
+      id: response.id,
+      userId: response.user.id,
+      movieId: response.movie.id,
+      notes: response.notes,
+    };
   }
 }
