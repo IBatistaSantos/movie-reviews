@@ -12,6 +12,7 @@ import { UserSchema } from '../users/infrastructure/repository/schemas/user.sche
 import { ConfigService } from '@nestjs/config';
 import { ForgotPasswordService } from './services/forgot-password.service';
 import { NotificationModule } from '../notification/notification.module';
+import { ResetPasswordService } from './services/reset-password.service';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { NotificationModule } from '../notification/notification.module';
   providers: [
     AuthenticationService,
     ForgotPasswordService,
+    ResetPasswordService,
     { provide: 'HashProvider', useClass: BcryptProvider },
     { provide: 'UserRepository', useClass: UserRepositoryImpl },
     { provide: 'JWTProvider', useClass: JWTProviderImpl },

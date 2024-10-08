@@ -5,6 +5,8 @@ import { AuthenticationService } from '../services/auth.service';
 import { ForgotPasswordService } from '../services/forgot-password.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ForgotPasswordDTO } from './dtos/forgotPassword.dto';
+import { ResetPasswordService } from '../services/reset-password.service';
+import { ResetPasswordDTO } from './dtos/resetPassword.dto';
 
 @Controller('auth')
 @ApiTags('Authentication')
@@ -12,6 +14,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthenticationService,
     private readonly forgotPasswordService: ForgotPasswordService,
+    private readonly resetPasswordService: ResetPasswordService,
   ) {}
 
   @Post()
@@ -44,5 +47,14 @@ export class AuthController {
   })
   async forgotPassword(@Body() params: ForgotPasswordDTO) {
     return await this.forgotPasswordService.execute(params);
+  }
+
+  @Post('reset-password')
+  @ApiResponse({
+    status: 200,
+    description: 'Reset the user password.',
+  })
+  async resetPassword(@Body() params: ResetPasswordDTO) {
+    return await this.resetPasswordService.execute(params);
   }
 }
