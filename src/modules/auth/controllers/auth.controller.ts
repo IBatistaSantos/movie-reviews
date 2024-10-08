@@ -40,7 +40,7 @@ export class AuthController {
   @Post('forgot-password')
   @ApiResponse({
     status: 200,
-    description: 'The user has been successfully authenticated.',
+    description: 'Send an email with a link to reset the password.',
   })
   async forgotPassword(@Body() params: ForgotPasswordDTO) {
     return await this.forgotPasswordService.execute(params);
