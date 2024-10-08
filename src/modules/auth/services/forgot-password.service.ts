@@ -31,10 +31,7 @@ export class ForgotPasswordService {
 
     user.setForgotPasswordToken(token);
 
-    await this.repository.updateForgotPasswordToken({
-      id: user.id,
-      token,
-    });
+    await this.repository.update(user);
 
     await this.emailService.execute({
       to: {

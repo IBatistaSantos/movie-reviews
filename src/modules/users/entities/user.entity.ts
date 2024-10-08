@@ -27,6 +27,14 @@ export class User extends BaseEntity {
     this._forgotPasswordToken = token;
   }
 
+  clearForgotPasswordToken() {
+    this._forgotPasswordToken = null;
+  }
+
+  setPassword(password: string) {
+    this._password = password;
+  }
+
   get name(): string {
     return this._name;
   }

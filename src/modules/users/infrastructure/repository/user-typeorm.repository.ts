@@ -1,7 +1,8 @@
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { UserRepository } from '../../repositories/user.repository';
 import { UserSchema } from './schemas/user.schema';
-import { Repository } from 'typeorm';
 import { TypeOrmMapper } from './typeorm.mapper';
 import { User } from '../../entities/user.entity';
 
@@ -11,13 +12,12 @@ export class UserRepositoryImpl implements UserRepository {
     private readonly repository: Repository<UserSchema>,
   ) {}
 
-  async updateForgotPasswordToken(params: {
-    id: string;
-    token: string;
-  }): Promise<void> {
-    await this.repository.update(params.id, {
-      forgotPasswordToken: params.token,
+  async findByToken(token: string): Promise<User | null> {
+    const response = await this.repository.findOne({
+      where: { forgotPasswordToken: String(token) },
     });
+
+    return TypeOrmMapper.toEntity<User>(response, User);
   }
 
   async findById(id: string): Promise<User | null> {
@@ -37,5 +37,9 @@ export class UserRepositoryImpl implements UserRepository {
 
   async save(user: User): Promise<void> {
     await this.repository.save(TypeOrmMapper.toSchema(user));
+  }
+
+  async update(user: User): Promise<void> {
+    await this.repository.update(user.id, TypeOrmMapper.toSchema(user));
   }
 }
