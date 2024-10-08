@@ -31,8 +31,8 @@ export class UserSchema {
   forgotPasswordToken: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }
