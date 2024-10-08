@@ -4,22 +4,17 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthenticationModule } from './modules/auth/auth.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { AppDataSource } from './config/data-source';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get('DB_HOST'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USER'),
-        password: configService.get('DB_PASS'),
-        database: configService.get('DB_NAME'),
-        entities: [__dirname + '/**/*.schema{.ts,.js}'],
-        synchronize: true,
-      }),
+      imports: [ConfigModule],
       inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        ...AppDataSource(configService).options,
+      }),
     }),
     UserModule,
     AuthenticationModule,
