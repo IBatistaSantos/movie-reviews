@@ -8,6 +8,9 @@ import { MovieReviewController } from './controllers/movie-review.controller';
 import { MovieReviewRepositoryImpl } from './infrastructure/repository/movie-review.repository';
 import { MovieSchema } from './infrastructure/repository/schemas/movie.schema';
 import { MovieReviewSchema } from './infrastructure/repository/schemas/movie-review.schema';
+import { DetailMovieReviewService } from './services/details-movie-review.service';
+import { DeleteMovieReviewsService } from './services/delete-movie-reviews.service';
+import { UpdateMovieReviewService } from './services/update-movie-review.service';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { MovieReviewSchema } from './infrastructure/repository/schemas/movie-rev
   controllers: [MovieReviewController],
   providers: [
     CreateMovieReviewService,
+    DetailMovieReviewService,
+    DeleteMovieReviewsService,
+    UpdateMovieReviewService,
     {
       provide: 'SearchMovieProvider',
       useClass: SearchMovieOmdbProvider,
