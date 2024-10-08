@@ -6,29 +6,24 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
-export class UserSchema {
+@Entity('notifications')
+export class NotificationSchema {
   @PrimaryColumn({
     primary: true,
   })
-  id: string;
+  id: number;
 
   @Column()
-  name: string;
-
-  @Column({
-    unique: true,
-  })
-  email: string;
+  context: string;
 
   @Column()
-  password: string;
+  subject: string;
+
+  @Column()
+  body: string;
 
   @Column()
   status: string;
-
-  @Column({ default: null })
-  forgotPasswordToken: string;
 
   @CreateDateColumn()
   created_at: Date;

@@ -5,12 +5,14 @@ export interface UserProps extends BaseEntityProps {
   name: string;
   email: string;
   password: string;
+  forgotPasswordToken?: string;
 }
 
 export class User extends BaseEntity {
   private _name: string;
   private _email: Email;
   private _password: string;
+  private _forgotPasswordToken: string | null;
 
   constructor(props: UserProps) {
     super(props);
@@ -18,6 +20,11 @@ export class User extends BaseEntity {
     this._name = props.name;
     this._email = new Email(props.email);
     this._password = props.password;
+    this._forgotPasswordToken = props.forgotPasswordToken || null;
+  }
+
+  setForgotPasswordToken(token: string) {
+    this._forgotPasswordToken = token;
   }
 
   get name(): string {
@@ -32,12 +39,17 @@ export class User extends BaseEntity {
     return this._password;
   }
 
+  get forgotPasswordToken(): string | null {
+    return this._forgotPasswordToken;
+  }
+
   toJSON(): UserProps {
     return {
       ...super.toJSON(),
       name: this.name,
       email: this.email.value,
       password: this._password,
+      forgotPasswordToken: this._forgotPasswordToken,
     };
   }
 }

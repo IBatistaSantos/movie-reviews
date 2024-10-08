@@ -11,6 +11,15 @@ export class UserRepositoryImpl implements UserRepository {
     private readonly repository: Repository<UserSchema>,
   ) {}
 
+  async updateForgotPasswordToken(params: {
+    id: string;
+    token: string;
+  }): Promise<void> {
+    await this.repository.update(params.id, {
+      forgotPasswordToken: params.token,
+    });
+  }
+
   async findById(id: string): Promise<User | null> {
     const response = await this.repository.findOne({
       where: { id },
