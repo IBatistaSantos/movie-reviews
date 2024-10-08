@@ -20,7 +20,7 @@ describe('BaseEntity', () => {
       id: '123',
       createdAt: baseEntity.createdAt,
       updatedAt: baseEntity.updatedAt,
-      status: baseEntity.status,
+      status: baseEntity.status.value,
     });
   });
 });

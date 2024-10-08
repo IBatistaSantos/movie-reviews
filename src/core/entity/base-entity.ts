@@ -5,7 +5,7 @@ interface BaseEntityParams {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  status: Status;
+  status: string;
 }
 
 export type BaseEntityProps = Partial<BaseEntityParams>;
@@ -20,7 +20,7 @@ export class BaseEntity {
     this._id = props.id || randomUUID();
     this._createdAt = props.createdAt || new Date();
     this._updatedAt = props.updatedAt || new Date();
-    this._status = props.status || Status.ACTIVE;
+    this._status = new Status(props.status);
   }
 
   get id(): string {
@@ -40,11 +40,11 @@ export class BaseEntity {
   }
 
   public activate(): void {
-    this._status = Status.ACTIVE;
+    this._status = new Status('ACTIVE');
   }
 
   public deactivate(): void {
-    this._status = Status.INACTIVE;
+    this._status = new Status('INACTIVE');
   }
 
   toJSON(): BaseEntityProps {
@@ -52,7 +52,7 @@ export class BaseEntity {
       id: this.id,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-      status: this.status,
+      status: this.status.value,
     };
   }
 }

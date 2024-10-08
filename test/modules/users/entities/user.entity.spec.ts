@@ -23,8 +23,9 @@ describe('UserEntity', () => {
       id: userEntity.id,
       createdAt: userEntity.createdAt,
       updatedAt: userEntity.updatedAt,
-      status: userEntity.status,
+      status: userEntity.status.value,
       name: userEntity.name,
+      forgotPasswordToken: null,
       email: userEntity.email.value,
       password: userEntity.password,
     });
