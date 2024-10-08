@@ -10,6 +10,8 @@ import { JwtStrategy } from './services/jwt.strategy';
 import { AuthController } from './controllers/auth.controller';
 import { UserSchema } from '../users/infrastructure/repository/schemas/user.schema';
 import { ConfigService } from '@nestjs/config';
+import { ForgotPasswordService } from './services/forgot-password.service';
+import { NotificationModule } from '../notification/notification.module';
 
 @Module({
   imports: [
@@ -21,9 +23,11 @@ import { ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([UserSchema]),
+    NotificationModule,
   ],
   providers: [
     AuthenticationService,
+    ForgotPasswordService,
     { provide: 'HashProvider', useClass: BcryptProvider },
     { provide: 'UserRepository', useClass: UserRepositoryImpl },
     { provide: 'JWTProvider', useClass: JWTProviderImpl },
