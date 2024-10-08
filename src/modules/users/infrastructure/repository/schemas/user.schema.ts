@@ -1,7 +1,10 @@
+import { MovieReviewSchema } from '@/modules/movie-reviews/infrastructure/repository/schemas/movie-review.schema';
+import { MovieSchema } from '@/modules/movie-reviews/infrastructure/repository/schemas/movie.schema';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -35,4 +38,7 @@ export class UserSchema {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => MovieReviewSchema, (review) => review.user)
+  reviews: MovieSchema[];
 }
