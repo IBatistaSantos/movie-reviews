@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthenticationModule } from './modules/auth/auth.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { AppDataSource } from './config/data-source';
+import { MovieReviewModule } from './modules/movie-reviews/movie-review.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AppDataSource } from './config/data-source';
     UserModule,
     AuthenticationModule,
     NotificationModule,
+    MovieReviewModule,
   ],
   controllers: [],
   providers: [],
