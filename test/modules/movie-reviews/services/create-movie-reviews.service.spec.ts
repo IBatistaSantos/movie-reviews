@@ -46,7 +46,12 @@ describe('CreateMovieReviewService', () => {
     });
 
     repository.findByTitle.mockResolvedValue(null);
-    repository.createReview.mockResolvedValue(null);
+    repository.createReview.mockResolvedValue({
+      id: '1',
+      movieId: '1',
+      userId,
+      notes,
+    });
 
     await provider.execute({ userId, title, notes });
 
@@ -87,7 +92,12 @@ describe('CreateMovieReviewService', () => {
     });
 
     repository.findByTitle.mockResolvedValue(null);
-    repository.createReview.mockResolvedValue(null);
+    repository.createReview.mockResolvedValue({
+      id: '1',
+      movieId: '1',
+      userId,
+      notes,
+    });
 
     await provider.execute({ userId, title, notes });
 
