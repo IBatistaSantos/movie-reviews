@@ -10,8 +10,8 @@ import { MovieSchema } from './movie.schema';
 
 @Entity('movie_reviews')
 export class MovieReviewSchema {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   notes: string;

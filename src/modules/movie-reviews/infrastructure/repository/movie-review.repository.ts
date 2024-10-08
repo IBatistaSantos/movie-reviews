@@ -18,8 +18,43 @@ export class MovieReviewRepositoryImpl implements MovieRepository {
     private readonly reviewRepository: Repository<MovieReviewSchema>,
   ) {}
 
+  async findById(id: string): Promise<Movie | null> {
+    const response = await this.repository.findOne({
+      where: { id, status: 'ACTIVE' },
+    });
+
+    return TypeOrmMapper.toEntity(response, Movie);
+  }
+
+  async getMovieReview(reviewId: string): Promise<MovieReviewData> {
+    const review = await this.reviewRepository.findOne({
+      where: {
+        id: reviewId,
+      },
+    });
+
+    if (!review) {
+      return null;
+    }
+
+    return {
+      notes: review.notes,
+      userId: review.user.id,
+      movieId: review.movie.id,
+    };
+  }
+
+  async deleteReview(reviewId: string): Promise<void> {
+    await this.reviewRepository.delete(reviewId);
+  }
+
+  async updateReview(reviewId: string, notes: string): Promise<void> {
+    await this.reviewRepository.update(reviewId, {
+      notes,
+    });
+  }
+
   async findByTitle(title: string): Promise<Movie | null> {
-    console.log({ title });
     const movie = await this.repository.findOneBy({
       title,
       status: 'ACTIVE',
