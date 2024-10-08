@@ -2,30 +2,27 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('notifications')
-export class NotificationSchema {
-  @PrimaryGeneratedColumn('uuid')
+@Entity('templates')
+export class TemplateSchema {
+  @PrimaryColumn({
+    primary: true,
+  })
   id: string;
-
-  @Column()
-  messageId: string;
 
   @Column()
   context: string;
 
   @Column()
-  to: string;
+  subject: string;
 
   @Column()
-  templateId: string;
+  body: string;
 
-  @Column({
-    default: 'SENT',
-  })
+  @Column()
   status: string;
 
   @CreateDateColumn()

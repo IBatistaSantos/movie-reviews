@@ -4,8 +4,10 @@ import { NotificationRepositoryImpl } from './infrastructure/repository/notifica
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NotificationSchema } from './infrastructure/repository/schemas/notification.schema';
 import { FakerMailer } from './providers/implementations/faker-mailer';
+import { TemplateSchema } from './infrastructure/repository/schemas/template.schema';
+
 @Module({
-  imports: [TypeOrmModule.forFeature([NotificationSchema])],
+  imports: [TypeOrmModule.forFeature([NotificationSchema, TemplateSchema])],
   controllers: [],
   providers: [
     SendMailUseCase,

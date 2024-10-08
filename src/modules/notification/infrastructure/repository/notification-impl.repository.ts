@@ -4,14 +4,17 @@ import {
   NotificationRepository,
   SaveSenderEmailParams,
 } from '../../repository/notification.repository';
-import { NotificationSchema } from './schemas/notification.schema';
+import { TemplateSchema } from './schemas/template.schema';
 import { Repository } from 'typeorm';
 import { TypeOrmMapper } from '@/modules/users/infrastructure/repository/typeorm.mapper';
+import { NotificationSchema } from './schemas/notification.schema';
 
 export class NotificationRepositoryImpl implements NotificationRepository {
   constructor(
+    @InjectRepository(TemplateSchema)
+    private readonly repository: Repository<TemplateSchema>,
     @InjectRepository(NotificationSchema)
-    private readonly repository: Repository<NotificationSchema>,
+    private readonly notificationRepository: Repository<NotificationSchema>,
   ) {}
 
   async findByContext(context: TemplateContextValue): Promise<Template> {
@@ -23,7 +26,7 @@ export class NotificationRepositoryImpl implements NotificationRepository {
   }
 
   async save(params: SaveSenderEmailParams): Promise<void> {
-    await this.repository.save({
+    await this.notificationRepository.save({
       ...params,
     });
   }
