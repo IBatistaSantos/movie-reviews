@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 import { Movie } from '../../entity/movie';
 import {
+  ListMovieReviewsOutput,
   MovieRepository,
   MovieReviewData,
   MovieReviewOutput,
@@ -9,6 +10,7 @@ import { MovieSchema } from './schemas/movie.schema';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmMapper } from '@/modules/users/infrastructure/repository/typeorm.mapper';
 import { MovieReviewSchema } from './schemas/movie-review.schema';
+import { ListMovieReviewsOptions } from '../../services/list-movie-reviews.service';
 
 export class MovieReviewRepositoryImpl implements MovieRepository {
   constructor(
@@ -18,6 +20,70 @@ export class MovieReviewRepositoryImpl implements MovieRepository {
     @InjectRepository(MovieReviewSchema)
     private readonly reviewRepository: Repository<MovieReviewSchema>,
   ) {}
+
+  async listMovieReviews(
+    userId: string,
+    options: Partial<ListMovieReviewsOptions>,
+  ): Promise<ListMovieReviewsOutput> {
+    const { page, limit, title, actor, director, notes, sortBy, order } =
+      options;
+
+    const query = this.reviewRepository
+      .createQueryBuilder('review')
+      .leftJoinAndSelect('review.movie', 'movie')
+      .leftJoinAndSelect('review.user', 'user')
+      .where('user.id = :userId', { userId });
+
+    if (title) {
+      query.andWhere('LOWER(movie.title) LIKE :title', {
+        title: `%${title.toLowerCase()}%`,
+      });
+    }
+
+    if (actor) {
+      query.andWhere('LOWER(movie.actor) LIKE :actor', {
+        actor: `%${actor.toLowerCase()}%`,
+      });
+    }
+
+    if (director) {
+      query.andWhere('LOWER(movie.director) LIKE :director', {
+        director: `%${director.toLowerCase()}%`,
+      });
+    }
+
+    if (notes) {
+      query.andWhere('LOWER(review.notes) LIKE :notes', {
+        notes: `%${notes.toLowerCase()}%`,
+      });
+    }
+
+    if (sortBy) {
+      query.orderBy(`movie.${sortBy}`, order);
+    }
+
+    if (page && limit) {
+      query.skip((page - 1) * limit).take(limit);
+    }
+
+    const [review, total] = await query.getManyAndCount();
+
+    const reviewMapper = review.map((review) => ({
+      notes: review.notes,
+      userId: review.user.id,
+      name: review.user.name,
+      movie: {
+        id: review.movie.id,
+        title: review.movie.title,
+        actor: review.movie.actors,
+        poster: review.movie.poster,
+        rating: review.movie.rating,
+        genre: review.movie.genre,
+      },
+    }));
+
+    return { data: reviewMapper, total };
+  }
 
   async findById(id: string): Promise<Movie | null> {
     const response = await this.repository.findOne({
