@@ -11,6 +11,7 @@ import { MovieReviewSchema } from './infrastructure/repository/schemas/movie-rev
 import { DetailMovieReviewService } from './services/details-movie-review.service';
 import { DeleteMovieReviewsService } from './services/delete-movie-reviews.service';
 import { UpdateMovieReviewService } from './services/update-movie-review.service';
+import { ListMovieReviewsService } from './services/list-movie-reviews.service';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UpdateMovieReviewService } from './services/update-movie-review.service
     DetailMovieReviewService,
     DeleteMovieReviewsService,
     UpdateMovieReviewService,
+    ListMovieReviewsService,
     {
       provide: 'SearchMovieProvider',
       useClass: SearchMovieOmdbProvider,
