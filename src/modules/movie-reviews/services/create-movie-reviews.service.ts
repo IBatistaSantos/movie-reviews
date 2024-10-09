@@ -54,6 +54,7 @@ export class CreateMovieReviewService {
       title: movie.title,
       actors: movie.actors,
       genre: movie.genre,
+      director: movie.director,
       poster: movie.poster,
       rating: movie.rating,
       released: movie.released,

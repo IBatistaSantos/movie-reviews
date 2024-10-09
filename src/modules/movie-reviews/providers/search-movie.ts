@@ -4,6 +4,7 @@ export interface MovieProvider {
   actors: string;
   poster: string;
   released: string;
+  director: string;
   genre: string;
   rating: number;
 }

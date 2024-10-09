@@ -34,6 +34,9 @@ export class MovieSchema {
   genre: string;
 
   @Column()
+  director: string;
+
+  @Column()
   rating: number;
 
   @Column({

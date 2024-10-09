@@ -8,6 +8,7 @@ import { MovieProvider, SearchMovieProvider } from './search-movie';
 interface MovieOMDB {
   Title: string;
   Year: string;
+  Director: string;
   Actors: string;
   Poster: string;
   Released: string;
@@ -37,6 +38,7 @@ export class SearchMovieOmdbProvider implements SearchMovieProvider {
       year: data.Year,
       actors: data.Actors,
       poster: data.Poster,
+      director: data.Director,
       released: data.Released,
       genre: data.Genre,
       rating: parseFloat(data.imdbRating),

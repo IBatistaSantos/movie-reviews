@@ -7,6 +7,7 @@ export interface MovieProps extends BaseEntityProps {
   poster: string;
   released: string;
   genre: string;
+  director: string;
   rating: number;
 }
 
@@ -17,12 +18,14 @@ export class Movie extends BaseEntity {
   private _released: string;
   private _genre: string;
   private _poster: string;
+  private _director: string;
   private _rating: number;
 
   constructor(props: MovieProps) {
     super(props);
     this._title = props.title;
     this._actors = props.actors;
+    this._director = props.director;
     this._poster = props.poster;
     this._genre = props.genre;
     this._year = props.year;
@@ -50,6 +53,10 @@ export class Movie extends BaseEntity {
     return this._genre;
   }
 
+  get director() {
+    return this._director;
+  }
+
   get released() {
     return this._released;
   }
@@ -64,6 +71,7 @@ export class Movie extends BaseEntity {
       title: this._title,
       actors: this._actors,
       rating: this._rating,
+      director: this._director,
       released: this._released,
       year: this._year,
       poster: this._poster,
