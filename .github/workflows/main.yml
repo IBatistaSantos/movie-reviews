@@ -16,11 +16,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          DB_HOST=localhost
-          DB_PORT=3306
-          DB_USER=user
-          DB_PASS=root
-          DB_NAME=test
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+          MYSQL_USER: user
+          MYSQL_PASSWORD: root
         ports:
           - 3306:3306
         options: >-
@@ -30,7 +29,7 @@ jobs:
           --health-retries 3
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
@@ -39,7 +38,7 @@ jobs:
           version: 9
           run_install: false
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -47,16 +46,13 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-        
+
       - name: Run build
         run: pnpm run build
 
       - name: Run lint
         run: pnpm run lint
 
-      - name: Run unit tests
-        run: pnpm run test
-      
       - name: Wait for MySQL to be ready
         run: |
           for i in {30..0}; do
@@ -69,10 +65,14 @@ jobs:
           if [ $i -eq 0 ]; then
             echo 'MySQL did not start within the expected time.'
             exit 1
-              fi
-      - name: Run integration tests 
+          fi
+
+      - name: Run unit tests
+        run: pnpm run test
+
+      - name: Run integration tests
         env:
-          DB_HOST: localhost
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: user
           DB_PASS: root
