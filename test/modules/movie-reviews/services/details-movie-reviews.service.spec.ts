@@ -40,6 +40,7 @@ describe('DetailMovieReviewService', () => {
       new Movie({
         id: faker.string.uuid(),
         title: 'The Matrix',
+        director: 'The Matrix',
         actors: 'Keanu Reeves, Laurence Fishburne',
         genre: 'Action, Sci-Fi',
         poster: 'https://example.com/poster.jpg',

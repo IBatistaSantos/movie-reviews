@@ -38,6 +38,7 @@ describe('CreateMovieReviewService', () => {
     searchMovieProvider.search.mockResolvedValue({
       title,
       actors: 'Keanu Reeves, Laurence Fishburne',
+      director: 'Lana Wachowski, Lilly Wachowski',
       genre: 'Action, Sci-Fi',
       poster: 'https://example.com/poster.jpg',
       rating: 8.7,
@@ -84,6 +85,7 @@ describe('CreateMovieReviewService', () => {
     searchMovieProvider.search.mockResolvedValue({
       title,
       actors: 'Keanu Reeves, Laurence Fishburne',
+      director: 'Lana Wachowski, Lilly Wachowski',
       genre: 'Action, Sci-Fi',
       poster: 'https://example.com/poster.jpg',
       rating: 8.7,
