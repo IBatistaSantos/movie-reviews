@@ -1,20 +1,36 @@
-# Dolado: Teste prático para Backend
+# Dolado: Movie Reviews
 
-## Introdução
-Este é o teste que nós da [Dolado](http://www.dolado.com.br) usamos para avaliar os candidatos de vagas para Backend. Do júnior ao sênior, todos são avaliados pelo mesmo teste mas por critérios distintos. Se você estiver participando de um processo seletivo para nossa equipe, certamente em algum momento receberá este link, mas caso você tenha chego aqui "por acaso", sinta-se convidado a desenvolver nosso teste e enviar uma mensagem para nós no e-mail `tech@dolado.com.br`.
+## Experience
 
-A ideia deste teste é ser acessível para todos, mas de acordo com a vaga olhamos com maior rigor para alguns pontos. De todo modo, esperamos que no decorrer deste desafio você tenha uma ótima experiência e esteja satisfeito com o resultado final antes de enviá-lo. Por este motivo, não colocamos um prazo para a realização do teste e esperamos que você dedique o tempo necessário até estar satisfeito com o resultado.
+### Como foi a experiência no decorrer de todo o processo de desenvolvimento?
 
-Nós fazemos isso esperando que as pessoas mais iniciantes entendam qual o modelo de profissional que temos por aqui e que buscamos para o nosso time. Portanto, se você estiver se candidatando a uma vaga mais iniciante, não se assuste e faça o melhor que você puder!
+A experiência no desenvolvimento da aplicação foi tranquila, mas tive que me controlar para evitar over engineering, já que o problema era relativamente simples. O desafio foi principalmente na definição da arquitetura, onde precisei manter o foco em soluções objetivas e práticas, sem adicionar complexidade desnecessária.
 
-## Instruções
-Você deverá criar um `fork` deste projeto e desenvolver todo o teste em cima dele. Esperamos encontrar no *README* principal do seu repositório uma descrição minuciosa sobre:
-- Como foi a experiência no decorrer de todo o processo de desenvolvimento?
-- Quais foram as principais decisões tomadas?
-- Como foi organizado o projeto em termos de estrutura de pastas e arquivos?
-- Instruções de como rodar o projeto.
 
-Lembre-se que este é um teste técnico e não um concurso público, portanto, não existe apenas uma resposta correta. Mostre que você é bom e nos impressione, mas não esqueça do objetivo do projeto.
+### Quais foram as principais decisões tomadas?
+
+As principais decisões foram priorizar o desacoplamento do repository e da API de busca de informações dos filmes, além de criar entidades para que quando houver mais regras de negócio fiquem isoladas e não vazem para a camada de service. 
+
+### Como foi organizado o projeto em termos de estrutura de pastas e arquivos?
+
+Organizei os módulos da aplicação na pasta `modules`, e cada módulo segue a estrutura: `entity` para as entidades de negócio, `controller` para os controladores e DTOs que chamam os services, `service` separado por fluxo/operação, e `infrastructure` para implementações de repositórios e schemas.
+
+### Instruções de como rodar o projeto.
+
+O projeto pode ser executado utilizando o docker compose. Lembrando de criar o .env na raiz do projeto com as seguintes variaveis. 
+```
+OMDB_API_KEY=<sua-api-key>
+DB_HOST=db
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=example
+DB_NAME=app_database
+```
+`AVISO`: Por estar rodando no Docker, o DB_HOST deve ser o nome do container do banco de dados definido no arquivo `docker-compose.yml`. Geralmente, é `db` se não tiver sido alterado.
+
+Após os contêineres serem iniciados, você pode acessar a documentação da aplicação através do navegador, usando o endereço:
+
+``` http://localhost:3000/docs ```
 
 ## O Desafio
 Você é um programador backend que já trabalha a muito tempo na área e, apesar de trabalhar duro durante a semana, seu hobby preferido sempre foi avaliar filmes. Tendo feito isso durante anos, suas anotações começaram a se perder entre os arquivos de um computador e outro e você teve a brilhante ideia de organizá-las numa api simples, de modo que pudesse sempre voltar e encontrar facilmente suas anotações sobre os filmes já vistos.
